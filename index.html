@@ -1,50 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizador Seguro</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador Seguro</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+  <header class="contenedor">
+    <h1 class="titulo">Cotizador de Seguro</h1>
+  </header>
+  <form>
     <form>
-        <label>Marca y modelo:</label>
-        <select id="marca-modelo">
-          <option value="americano">Americano</option>
-          <option value="europeo">Europeo</option>
-          <option value="japones">Japonés</option>
-        </select>
-        
-        <label>Año:</label>
-        <select id="anio">
-          <option value="2010">2010</option>
-          <option value="2011">2011</option>
-          <option value="2012">2012</option>
-          <option value="2013">2013</option>
-          <option value="2014">2014</option>
-          <option value="2015">2015</option>
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-        </select>
-        
-        <label>Cobertura:</label>
-        <select id="cobertura">
-          <option value="premium">Premium</option>
-          <option value="medio">Medio</option>
-          <option value="basico">Básico</option>
-        </select>
-        
-        <button type="button" onclick="calcularSeguro()">Calcular</button>
-      </form>
-      
-      <p id="resultado"></p>
+      <label for="marca-modelo">Marca y modelo:</label>
+      <select id="marca-modelo">
+        <optgroup label="Americano">
+          <option value="americano-chevrolet">Chevrolet</option>
+          <option value="americano-ford">Ford</option>
+          <option value="americano-dodge">Dodge</option>
+        </optgroup>
+        <optgroup label="Europeo">
+          <option value="europeo-audi">Audi</option>
+          <option value="europeo-volkswagen">Volkswagen</option>
+          <option value="europeo-porsche">Porsche</option>
+        </optgroup>
+        <optgroup label="Japonés">
+          <option value="japones-mitsubishi">Mitsubishi</option>
+          <option value="japones-mazda">Mazda</option>
+          <option value="japones-toyota">Toyota</option>
+        </optgroup>
+      </select>
+    </select>
 
-      <script src="js/java.js"></script>
-    
+    <label for="anio">Año:</label>
+    <select id="anio">
+      <option value="2010">2010</option>
+      <option value="2011">2011</option>
+      <option value="2012">2012</option>
+      <option value="2013">2013</option>
+      <option value="2014">2014</option>
+      <option value="2015">2015</option>
+      <option value="2016">2016</option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+      <option value="2019">2019</option>
+      <option value="2020">2020</option>
+      <option value="2021">2021</option>
+      <option value="2022">2022</option>
+    </select>
+
+    <label for="cobertura">Cobertura:</label>
+    <select id="cobertura">
+      <option value="premium">Premium</option>
+      <option value="medio">Medio</option>
+      <option value="basico">Básico</option>
+    </select>
+
+    <button type="button" onclick="calcularSeguro()">Calcular</button>
+  </form>
+
+  <p id="resultado"></p>
+
+  <script src="js/java.js"></script>
 </body>
 </html>
