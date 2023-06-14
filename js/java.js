@@ -1,4 +1,3 @@
-// Precios base por tipo de modelo y marca
 const precios = {
   americano: {
     chevrolet: 30000,
@@ -17,10 +16,8 @@ const precios = {
   }
 };
 
-// Porcentaje de descuento por año
 const porcentajeDescuentoAnio = 3;
 
-// Porcentaje de incremento por cobertura
 const porcentajeCobertura = {
   premium: 1.5,
   medio: 1.2,
@@ -31,7 +28,7 @@ function calcularSeguro() {
   const marcaModeloInput = document.getElementById("marca-modelo");
   const tipoModeloMarca = marcaModeloInput.value;
   const [tipoModelo, marca] = tipoModeloMarca.split("-");
-  
+
   const anioInput = document.getElementById("anio");
   const anio = anioInput.value;
 
@@ -47,4 +44,24 @@ function calcularSeguro() {
 
   const resultadoElement = document.getElementById("resultado");
   resultadoElement.textContent = `El costo total de tu seguro es de $${precioTotal}`;
+
+  // Guardar selecciones del usuario en el almacenamiento local
+  const seleccionUsuario = {
+    tipoModelo,
+    marca,
+    anio,
+    cobertura
+  };
+  localStorage.setItem("seleccionUsuario", JSON.stringify(seleccionUsuario));
 }
+
+// Cargar selecciones previas del usuario del almacenamiento local
+window.addEventListener("load", function() {
+  const seleccionGuardada = localStorage.getItem("seleccionUsuario");
+  if (seleccionGuardada) {
+    const { tipoModelo, marca, anio, cobertura } = JSON.parse(seleccionGuardada);
+    document.getElementById("marca-modelo").value = `${tipoModelo}-${marca}`;
+    document.getElementById("anio").value = anio;
+    document.getElementById("cobertura").value = cobertura;
+  }
+});
