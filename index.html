@@ -1,42 +1,40 @@
-User
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cotizador Seguro</title>
-  <link rel="stylesheet" href="./css/styles.css">
+  <title>Cotiza Tu Auto</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="contenedor">
-    <h1 class="titulo">Cotizador de Seguro</h1>
-    
+    <h1 class="titulo">Cotiza Tu Auto</h1>
   </header>
-  <form>
-    <form>
-      <label for="marca-modelo">Marca y modelo:</label>
-      <select id="marca-modelo">
-        <optgroup label="Americano">
-          <option value="americano-chevrolet">Chevrolet</option>
-          <option value="americano-ford">Ford</option>
-          <option value="americano-dodge">Dodge</option>
-        </optgroup>
-        <optgroup label="Europeo">
-          <option value="europeo-audi">Audi</option>
-          <option value="europeo-volkswagen">Volkswagen</option>
-          <option value="europeo-porsche">Porsche</option>
-        </optgroup>
-        <optgroup label="Japonés">
-          <option value="japones-mitsubishi">Mitsubishi</option>
-          <option value="japones-mazda">Mazda</option>
-          <option value="japones-toyota">Toyota</option>
-        </optgroup>
-      </select>
+
+  <form id="formulario">
+    <label for="marca-modelo">Marca y modelo:</label>
+    <select id="marca-modelo">
+      <optgroup label="Americano">
+        <option value="americano-chevrolet">Chevrolet</option>
+        <option value="americano-ford">Ford</option>
+        <option value="americano-dodge">Dodge</option>
+      </optgroup>
+      <optgroup label="Europeo">
+        <option value="europeo-audi">Audi</option>
+        <option value="europeo-volkswagen">Volkswagen</option>
+        <option value="europeo-porsche">Porsche</option>
+      </optgroup>
+      <optgroup label="Japonés">
+        <option value="japones-mitsubishi">Mitsubishi</option>
+        <option value="japones-mazda">Mazda</option>
+        <option value="japones-toyota">Toyota</option>
+      </optgroup>
     </select>
 
     <label for="anio">Año:</label>
     <select id="anio">
+      <option value="">Selecciona un Año</option>
       <option value="2010">2010</option>
       <option value="2011">2011</option>
       <option value="2012">2012</option>
@@ -54,12 +52,13 @@ User
 
     <label for="cobertura">Cobertura:</label>
     <select id="cobertura">
+      <option value="">Selecciona una cobertura</option>
       <option value="premium">Premium</option>
       <option value="medio">Medio</option>
       <option value="basico">Básico</option>
     </select>
 
-    <button type="button" onclick="calcularSeguro()">Calcular</button>
+    <button type="submit">Calcular</button>
   </form>
 
   <p id="resultado"></p>

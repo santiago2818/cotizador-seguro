@@ -24,39 +24,20 @@ const porcentajeCobertura = {
   basico: 1.1
 };
 
-function calcularSeguro() {
-  const marcaModeloInput = document.getElementById("marca-modelo");
-  const tipoModeloMarca = marcaModeloInput.value;
-  const [tipoModelo, marca] = tipoModeloMarca.split("-");
+function obtenerValorElemento(id) {
+  return document.getElementById(id).value;
+}
 
-  const anioInput = document.getElementById("anio");
-  const anio = anioInput.value;
-
-  const coberturaInput = document.getElementById("cobertura");
-  const cobertura = coberturaInput.value;
-
-  const precioBase = precios[tipoModelo][marca];
-  const diferenciaAnio = new Date().getFullYear() - anio;
-  const descuentoAnio = (diferenciaAnio * porcentajeDescuentoAnio * precioBase) / 100;
-  const precioSinDescuento = precioBase - descuentoAnio;
-  const precioConCobertura = precioSinDescuento * porcentajeCobertura[cobertura];
-  const precioTotal = precioConCobertura.toFixed(2);
-
+function mostrarResultado(resultado) {
   const resultadoElement = document.getElementById("resultado");
-  resultadoElement.textContent = `El costo total de tu seguro es de $${precioTotal}`;
+  resultadoElement.textContent = resultado;
+}
 
-  // Guardar selecciones del usuario en el almacenamiento local
-  const seleccionUsuario = {
-    tipoModelo,
-    marca,
-    anio,
-    cobertura
-  };
+function guardarSeleccionUsuario(seleccionUsuario) {
   localStorage.setItem("seleccionUsuario", JSON.stringify(seleccionUsuario));
 }
 
-// Cargar selecciones previas del usuario del almacenamiento local
-window.addEventListener("load", function() {
+function cargarSeleccionUsuario() {
   const seleccionGuardada = localStorage.getItem("seleccionUsuario");
   if (seleccionGuardada) {
     const { tipoModelo, marca, anio, cobertura } = JSON.parse(seleccionGuardada);
@@ -64,4 +45,60 @@ window.addEventListener("load", function() {
     document.getElementById("anio").value = anio;
     document.getElementById("cobertura").value = cobertura;
   }
-});
+}
+
+function calcularDescuentoAnio(diferenciaAnio, precioBase) {
+  return (diferenciaAnio * porcentajeDescuentoAnio * precioBase) / 100;
+}
+
+function validarSeleccion(tipoModelo, marca, anio, cobertura) {
+  if (!tipoModelo || !marca || !anio || !cobertura) {
+    return false;
+  }
+
+  const currentYear = new Date().getFullYear();
+  const parsedAnio = parseInt(anio);
+  if (isNaN(parsedAnio) || parsedAnio < 1900 || parsedAnio > currentYear) {
+    return false;
+  }
+
+  return true;
+}
+
+function calcularSeguro(event) {
+  event.preventDefault();
+
+  const tipoModeloMarca = obtenerValorElemento("marca-modelo");
+  const [tipoModelo, marca] = tipoModeloMarca.split("-");
+
+  const anio = obtenerValorElemento("anio");
+  const cobertura = obtenerValorElemento("cobertura");
+
+  if (!validarSeleccion(tipoModelo, marca, anio, cobertura)) {
+    mostrarResultado("Por favor, selecciona todas las opciones válidas.");
+    return;
+  }
+
+  const precioBase = precios[tipoModelo][marca];
+  const diferenciaAnio = new Date().getFullYear() - anio;
+  const descuentoAnio = calcularDescuentoAnio(diferenciaAnio, precioBase);
+  const precioSinDescuento = precioBase - descuentoAnio;
+  const precioConCobertura = precioSinDescuento * porcentajeCobertura[cobertura];
+  const precioTotal = precioConCobertura.toFixed(2);
+
+  const resultado = `El costo total de tu poliza es de $${precioTotal}`;
+  mostrarResultado(resultado);
+
+  const seleccionUsuario = {
+    tipoModelo,
+    marca,
+    anio,
+    cobertura
+  };
+  guardarSeleccionUsuario(seleccionUsuario);
+}
+
+window.addEventListener("load", cargarSeleccionUsuario);
+
+const formulario = document.getElementById("formulario");
+formulario.addEventListener("submit", calcularSeguro);
